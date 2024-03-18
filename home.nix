@@ -91,14 +91,14 @@ in {
     nix-index-database.hmModules.nix-index
   ];
 
-  home.stateVersion = "22.11";
+  home.stateVersion = "23.11";
 
   home = {
     username = "${username}";
     homeDirectory = "/home/${username}";
 
     sessionVariables.EDITOR = "lvim";
-    # FIXME: set your preferred $SHELL
+    # set your preferred $SHELL
     sessionVariables.SHELL = "/etc/profiles/per-user/${username}/bin/zsh";
   };
 
@@ -160,10 +160,10 @@ in {
         side-by-side = true;
         navigate = true;
       };
-      userEmail = ""; # FIXME: set your git email
-      userName = ""; #FIXME: set your git username
+      userEmail = "tom@stirnkorb.me";
+      userName = "Tom Stirnkorb";
       extraConfig = {
-        # FIXME: uncomment the next lines if you want to be able to clone private https repos
+        # uncomment the next lines if you want to be able to clone private https repos
         # url = {
         #   "https://oauth2:${secrets.github_token}@github.com" = {
         #     insteadOf = "https://github.com";
