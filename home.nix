@@ -1,6 +1,5 @@
 {
-  # FIXME: uncomment the next line if you want to reference your GitHub/GitLab access tokens and other secrets
-  # secrets,
+  secrets,
   config,
   pkgs,
   lib,
@@ -11,6 +10,7 @@
   unstable-packages = with pkgs.unstable; [
     bat
     bottom
+    btop
     coreutils
     curl
     du-dust
@@ -23,7 +23,6 @@
     jq
     killall
     mosh
-    neovim
     procs
     ripgrep
     sd
@@ -33,20 +32,16 @@
     vim
     wget
     zip
-
-    go_1_22
   ];
 
   stable-packages = with pkgs; [
-    # FIXME: customize these stable packages to your liking for the languages that you use
-
     # key tools
     gh # for bootstrapping
     just
 
     # core languages
     rustup
-    #go
+    go
     lua
     nodejs
     python3
@@ -99,7 +94,6 @@ in {
     homeDirectory = "/home/${username}";
 
     sessionVariables.EDITOR = "nvim";
-    # set your preferred $SHELL
     sessionVariables.SHELL = "/etc/profiles/per-user/${username}/bin/zsh";
   };
 
@@ -119,23 +113,6 @@ in {
     nix-index.enableZshIntegration = true;
     nix-index-database.comma.enable = true;
 
-    # FIXME: disable this if you don't want to use the starship prompt
-    # starship.enable = true;
-    # starship.settings = {
-    #   aws.disabled = true;
-    #   gcloud.disabled = true;
-    #   kubernetes.disabled = false;
-    #   git_branch.style = "242";
-    #   directory.style = "blue";
-    #   directory.truncate_to_repo = false;
-    #   directory.truncation_length = 8;
-    #   python.disabled = true;
-    #   ruby.disabled = true;
-    #   hostname.ssh_only = false;
-    #   hostname.style = "bold green";
-    # };
-
-    # FIXME: disable whatever you don't want
     fzf.enable = true;
     fzf.enableZshIntegration = true;
     lsd.enable = true;
@@ -161,15 +138,11 @@ in {
       userEmail = "tom@stirnkorb.me";
       userName = "Tom Stirnkorb";
       extraConfig = {
-        # uncomment the next lines if you want to be able to clone private https repos
-        # url = {
-        #   "https://oauth2:${secrets.github_token}@github.com" = {
-        #     insteadOf = "https://github.com";
-        #   };
-        #   "https://oauth2:${secrets.gitlab_token}@gitlab.com" = {
-        #     insteadOf = "https://gitlab.com";
-        #   };
-        # };
+        url = {
+          "https://oauth2:${secrets.github_token}@github.com" = {
+            insteadOf = "https://github.com";
+          };
+        };
         push = {
           default = "current";
           autoSetupRemote = true;
@@ -183,7 +156,6 @@ in {
       };
     };
 
-    # FIXME: This is my .zshrc - you can fiddle with it if you want
     zsh = {
       enable = true;
       autocd = true;
@@ -232,7 +204,7 @@ in {
         "...." = "././..";
         cd = "z";
         gc = "nix-collect-garbage --delete-old";
-	update = "sudo nixos-rebuild switch";
+	      update = "sudo nixos-rebuild switch --flake ~/.nix-config";
 
         pbcopy = "/mnt/c/Windows/System32/clip.exe";
         pbpaste = "/mnt/c/Windows/System32/WindowsPowerShell/v1.0/powershell.exe -command 'Get-Clipboard'";

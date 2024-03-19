@@ -15,6 +15,9 @@
   inputs.nix-index-database.url = "github:Mic92/nix-index-database";
   inputs.nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
 
+  inputs.kickstart-nvim.url = "github:tomstix/kickstart-nix.nvim";
+
+
   outputs = inputs:
     with inputs; let
       secrets = builtins.fromJSON (builtins.readFile "${self}/secrets.json");
@@ -35,6 +38,7 @@
               inherit config;
             };
           })
+          kickstart-nvim.overlays.default
         ];
       };
 
